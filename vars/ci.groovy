@@ -20,13 +20,13 @@ def call() {
                 }
             }
 
-//            stage('Code Quality') {
-//                steps {
-//                    script {
-//                        common.codequality()
-//                    }
-//                }
-//            }
+            stage('Code Quality') {
+                steps {
+                    script {
+                        common.codequality()
+                    }
+                }
+            }
         }
 
     }
