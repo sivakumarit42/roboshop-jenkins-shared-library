@@ -10,7 +10,8 @@ def call() {
             stage('Compile/Build') {
                 steps {
                     sh 'env'
-                    sh 'exit 1'
+                    // to check what does "env" here
+                    //sh 'exit 1'
                     //To fail the job
                     script {
                         common.compile()
