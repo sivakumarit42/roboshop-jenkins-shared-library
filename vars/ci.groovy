@@ -9,7 +9,7 @@ def call() {
 
             stage('Compile/Build') {
                 steps {
-                    sh env
+                    sh 'env'
                     sh 'exit 1'
                     //To fail the job
                     script {
