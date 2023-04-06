@@ -9,8 +9,8 @@ def call() {
 
             stage('Compile/Build') {
                 steps {
-                    sh 'env'
-                    // to check what does "env" here
+                    //sh 'env'
+                    // to check what does "env" here.env shows the build url details
                     //sh 'exit 1'
                     //To fail the job
                     script {
