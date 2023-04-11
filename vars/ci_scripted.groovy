@@ -49,13 +49,11 @@ def call() {
                     common.artifactUpload()
                 }
             }
-            stage('Code Quality') {
-                common.codequality()
-            }
+
+
         } catch (e) {
             mail body: "<h1>${component} - Pipeline Failed \n ${BUILD_URL}</h1>", from: 'sivakumarit42@gmail.com', subject: "${component} - Pipeline Failed", to: 'sivakumarit42@gmail.com',  mimeType: 'text/html'
         }
 
     }
 }
-
