@@ -15,6 +15,7 @@ def call() {
             stage('Check Out Code') {
                 cleanWs()
                 git branch: 'main', url: 'https://github.com/sivakumarit42/cart'
+                //we have to check out(clone)the directory in scripted pipeline,but declarative pipeline it is automatically clone the directory
             }
 
             sh 'env'
