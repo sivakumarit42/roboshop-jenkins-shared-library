@@ -43,3 +43,4 @@ def call() {
 
     }
 }
+//duplicated i.e same as c_scripted.groovy because i couldnt find the error. i did like this later will see what happend exactly
