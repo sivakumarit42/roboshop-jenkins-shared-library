@@ -21,11 +21,17 @@ def call() {
 
             stage('Apply') {
                 steps {
-                    //sh 'terraform ${ACTION} -auto-approve -var-file=env-dev/main.tfvars'
-                    sh 'echo'
+                    sh 'terraform ${ACTION} -auto-approve -var-file=env-${ENV}/main.tfvars'
+                    //sh 'echo'
                 }
             }
 
+        }
+
+        post {
+            always {
+                cleanWs()
+            }
         }
 
     }
