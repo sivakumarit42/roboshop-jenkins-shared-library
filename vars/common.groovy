@@ -26,17 +26,19 @@ def codequality() {
 }
 
 
-//def prepareArtifacts() {
+def prepareArtifacts() {
 //    sh 'echo ${TAG_NAME} >VERSION'
 //    if (app_lang == "maven") {
 //        sh 'zip -r ${component}-${TAG_NAME}.zip ${component}.jar schema VERSION'
 //    } else {
 //        sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
 //    }
-//
-//}
-//
-//def artifactUpload() {
+
+    sh 'docker build -t 689260041272.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME} .'
+}
+
+def artifactUpload() {
+
 //    env.NEXUS_USER = sh ( script: 'aws ssm get-parameter --name prod.nexus.user --with-decryption | jq .Parameter.Value | xargs', returnStdout: true ).trim()
 //    env.NEXUS_PASS = sh ( script: 'aws ssm get-parameter --name prod.nexus.pass --with-decryption | jq .Parameter.Value | xargs', returnStdout: true ).trim()
 //    wrap([$class: 'MaskPasswordsBuildWrapper',
@@ -45,20 +47,25 @@ def codequality() {
 //        sh 'curl -v -u ${NEXUS_USER}:${NEXUS_PASS} --upload-file ${component}-${TAG_NAME}.zip http://172.31.12.4:8081/repository/${component}/${component}-${TAG_NAME}.zip'
 //
 //    }
-// }
+
+    sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 689260041272.dkr.ecr.us-east-1.amazonaws.com'
+    sh 'docker push 689260041272.dkr.ecr.us-east-1.amazonaws.com/${component}:${TAG_NAME}'
+ }
 
 
-def prepareArtifacts() {
-    sh 'echo ${TAG_NAME} >VERSION'
-    if (app_lang == "nodejs" || app_lang == "angular") {
-        sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
-    }
 
-}
 
-def artifactUpload() {
-    sh 'echo ${TAG_NAME} >VERSION'
-    if (app_lang == "nodejs" || app_lang == "angular") {
-        sh 'curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.12.4:8081/repository/${component}/${component}-${TAG_NAME}.zip'
-    }
-}
+//def prepareArtifacts() {
+//    sh 'echo ${TAG_NAME} >VERSION'
+//    if (app_lang == "nodejs" || app_lang == "angular") {
+//        sh 'zip -r ${component}-${TAG_NAME}.zip * -x Jenkinsfile'
+//    }
+//
+//}
+//
+//def artifactUpload() {
+//    sh 'echo ${TAG_NAME} >VERSION'
+//    if (app_lang == "nodejs" || app_lang == "angular") {
+//        sh 'curl -v -u admin:admin123 --upload-file ${component}-${TAG_NAME}.zip http://172.31.12.4:8081/repository/${component}/${component}-${TAG_NAME}.zip'
+//    }
+//}
